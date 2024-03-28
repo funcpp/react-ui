@@ -3,6 +3,12 @@
 import { PropsWithChildren, useEffect, useState } from "react";
 import { motion, useAnimationControls } from "framer-motion";
 import { cssLength } from "@/utils/css";
+import { twJoin, twMerge } from "tailwind-merge";
+
+type CarouselFloatingPositionX = "left" | "right" | "center";
+type CarouselFloatingPositionY = "top" | "bottom" | "center";
+type CarouselFloatingPosition =
+    `${CarouselFloatingPositionY} ${CarouselFloatingPositionX}`;
 
 interface CarouselProps
     extends React.DetailedHTMLProps<
@@ -10,31 +16,69 @@ interface CarouselProps
         HTMLDivElement
     > {
     showArrows?: boolean;
+    arrowsPosition?: CarouselFloatingPosition;
     showDots?: boolean;
+    dotsPosition?: CarouselFloatingPosition;
     showIndex?: boolean;
+    indexPosition?: CarouselFloatingPosition;
     transition: number;
     interval: number;
 
     height: number;
 }
 
-const Index = ({ children }: PropsWithChildren<{}>) => {
+interface CarouselFloatingProps
+    extends PropsWithChildren<React.HTMLAttributes<HTMLDivElement>> {}
+
+const getXY = (position: CarouselFloatingPosition): string => {
+    const [y, x] = position.split(" ");
+    const _y =
+        y === "top"
+            ? "top-4"
+            : y === "bottom"
+            ? "bottom-4"
+            : "top-1/2 -translate-y-1/2";
+    const _x =
+        x === "left"
+            ? "left-4"
+            : x === "right"
+            ? "right-4"
+            : "left-1/2 -translate-x-1/2";
+    return `absolute ${_y} ${_x}`;
+};
+
+const Index = ({ children, className = "" }: CarouselFloatingProps) => {
     return (
-        <div className="absolute bottom-16 right-16 flex justify-center text-center p-4 round-md">
+        <div
+            className={twJoin(
+                "z-10 flex justify-center rounded-lg bg-black/50 px-2 py-1 text-center font-semibold text-white",
+                className
+            )}
+        >
             {children}
         </div>
     );
 };
 
+/**
+ * Carousel for full-width images
+ * @param interval Interval between slides (ms)
+ * @param transition Transition duration (ms)
+ * @param children Array of Images
+ */
 export const Carousel = (props: PropsWithChildren<CarouselProps>) => {
     const {
         children,
         showArrows = false,
+        arrowsPosition = "bottom right",
         showDots = false,
+        dotsPosition = "bottom center",
         showIndex = true,
+        indexPosition = "bottom center",
         interval = 5000,
         transition = 200,
         height = 300,
+        className = "",
         ...rest
     } = props;
 
@@ -72,9 +116,9 @@ export const Carousel = (props: PropsWithChildren<CarouselProps>) => {
     }, [index]);
 
     return (
-        <div className="w-full relative overflow-hidden">
+        <div className={twMerge("relative w-full overflow-hidden", className)}>
             <motion.div
-                className="flex w-full overflow-hidden"
+                className="flex w-full"
                 animate={controls}
                 style={{ height: cssLength(height) }}
             >
@@ -82,7 +126,7 @@ export const Carousel = (props: PropsWithChildren<CarouselProps>) => {
                 {children[0] /* dup */}
             </motion.div>
 
-            <Index>
+            <Index className={getXY(indexPosition)}>
                 {index + 1} / {children.length}
             </Index>
         </div>

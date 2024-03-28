@@ -16,6 +16,7 @@ export default {
         dir: "dist",
         preserveModules: true,
         preserveModulesRoot: "src",
+        format: "esm",
     },
     plugins: [
         preserveDirectives(),
@@ -32,7 +33,7 @@ export default {
         uglify(),
         postcss({
             plugins: [autoprefixer(), cssnano()],
-            inject: false,
+            inject: true,
             extract: true,
         }),
         nodeResolve({
