@@ -1,9 +1,20 @@
 {
-  "name": "react-ui",
+  "name": "@nalmuks/react-ui",
   "type": "module",
   "main": "./dist/index.js",
-  "types": "./dist/src/index.d.ts",
+  "types": "./dist/index.d.ts",
   "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nalmuks/react-ui.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "author": "funcpp",
+  "files": [
+    "dist"
+  ],
   "packageManager": "yarn@4.1.1",
   "scripts": {
     "build": "rollup -c",
