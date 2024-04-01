@@ -3,22 +3,30 @@
 import { useEffect, useState } from "react";
 
 const useScroll = (id: string) => {
-    const [element, setElement] = useState<HTMLElement | null>(null);
+    const [element, setElement] = useState<Window | HTMLElement | null>(null);
 
     useEffect(() => {
         if (id) setElement(window.document.getElementById(id));
-        else setElement(window.document.body);
+        else setElement(window);
     }, [id]);
 
     const [scrollY, setScrollY] = useState<number>(
-        element ? element?.scrollTop : 0
+        element
+            ? id
+                ? (element as HTMLElement)?.scrollTop
+                : (element as Window)?.scrollY
+            : 0
     );
 
     useEffect(() => {
         if (!element) return;
 
         const handleScroll = () => {
-            setScrollY(element.scrollTop);
+            setScrollY(
+                id
+                    ? (element as HTMLElement)?.scrollTop
+                    : (element as Window)?.scrollY
+            );
         };
 
         element.addEventListener("scroll", handleScroll);
