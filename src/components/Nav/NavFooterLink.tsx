@@ -1,9 +1,11 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { MaterialSymbols } from '@/components/MaterialSymbols';
-import { twMerge } from 'tailwind-merge';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { MaterialSymbols } from "@/components/Icon/MaterialSymbols";
+import { twMerge } from "tailwind-merge";
+import { PropsWithChildren, ReactNode } from "react";
+import { Icon, IconProps } from "../Icon/Icon";
 
 interface NavFooterLinkProps
     extends React.DetailedHTMLProps<
@@ -11,29 +13,23 @@ interface NavFooterLinkProps
         HTMLDivElement
     > {
     title: string;
-    icon: {
-        type: 'material';
-        name: string;
-    };
+    icon?: IconProps;
     link: string;
 }
 
-export const NavFooterLink = (props: NavFooterLinkProps) => {
-    const { title, icon, link, className = '' } = props;
+export const NavFooterLink = (props: PropsWithChildren<NavFooterLinkProps>) => {
+    const { title, icon, link, className = "" } = props;
     const pathname = usePathname();
     return (
         <Link
             href={link}
             prefetch={true}
             className={twMerge(
-                'flex size-full cursor-pointer select-none flex-col items-center justify-center text-xs',
+                "flex size-full cursor-pointer select-none flex-col items-center justify-center text-xs",
                 className
             )}
         >
-            {icon.type === 'material' && (
-                // eslint-disable-next-line tailwindcss/no-custom-classname
-                <MaterialSymbols type="outlined">{icon.name}</MaterialSymbols>
-            )}
+            {icon && <Icon {...icon} />}
             <span>{title}</span>
         </Link>
     );

@@ -68,7 +68,7 @@ export const NavInstagram = (props: PropsWithChildren<NavInstagramProps>) => {
                 style={{
                     //minHeight: cssLength(containerHeight * state),
                     height: cssLength(containerHeight * state),
-                    //borderBottomWidth: cssLength(state),
+                    borderBottomWidth: cssLength(Math.ceil(state)),
                     ...style,
                 }}
                 {...rest}

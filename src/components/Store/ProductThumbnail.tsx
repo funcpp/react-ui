@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { DetailedHTMLProps, MouseEventHandler, PropsWithChildren } from "react";
-import { MaterialSymbols } from "../MaterialSymbols";
+import { MaterialSymbols } from "../Icon/MaterialSymbols";
 
 interface ProductThumbnailProps
     extends React.DetailedHTMLProps<

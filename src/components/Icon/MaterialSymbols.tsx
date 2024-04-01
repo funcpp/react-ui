@@ -1,5 +1,7 @@
 import React from "react";
 
+export type MaterialSymbolsType = "filled" | "outlined" | "round" | "sharp";
+
 export const MaterialSymbols = ({
     type = "outlined",
     children,
@@ -10,13 +12,13 @@ export const MaterialSymbols = ({
     React.HTMLAttributes<HTMLSpanElement>,
     HTMLSpanElement
 > & {
-    type?: "filled" | "outlined" | "round" | "sharp";
+    type?: MaterialSymbolsType;
 }) => {
-    const size = style?.fontSize || 24;
+    //const size = style?.fontSize || 24;
 
     const variants = {
         FILL: type === "filled" ? 1 : 0,
-        opsz: size,
+        //opsz: size,
     };
 
     const variantsStr = Object.entries(variants)

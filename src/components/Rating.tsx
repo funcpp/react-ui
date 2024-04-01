@@ -1,4 +1,4 @@
-import { MaterialSymbols } from "@/components/MaterialSymbols";
+import { MaterialSymbols } from "@/components/Icon/MaterialSymbols";
 import { twMerge } from "tailwind-merge";
 
 type RatingType = "stars" | "summary" | "expanded";
