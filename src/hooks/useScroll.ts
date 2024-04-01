@@ -6,7 +6,8 @@ const useScroll = (id: string) => {
     const [element, setElement] = useState<HTMLElement | null>(null);
 
     useEffect(() => {
-        setElement(window.document.getElementById(id));
+        if (id) setElement(window.document.getElementById(id));
+        else setElement(window.document.body);
     }, [id]);
 
     const [scrollY, setScrollY] = useState<number>(
