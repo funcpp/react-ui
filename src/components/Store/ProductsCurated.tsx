@@ -18,7 +18,7 @@ export const ProductsCurated = ({
     ...rest
 }: PropsWithChildren<ProductsCuratedProps>) => {
     return (
-        <div className={twMerge("flex flex-col gap-1 p-3", className)}>
+        <div className={twMerge("flex flex-col gap-1 p-4", className)}>
             <div className="mb-0.5 flex flex-row justify-between">
                 <div className="text-lg font-semibold">{title}</div>
                 <div className="flex cursor-pointer select-none items-center justify-center text-base text-gray-800">
