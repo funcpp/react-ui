@@ -1,5 +1,6 @@
 import { DetailedHTMLProps, HTMLAttributes, PropsWithChildren } from "react";
 import { Icon } from "../Icon";
+import { twMerge } from "tailwind-merge";
 
 interface ProductsCuratedProps
     extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
@@ -13,10 +14,11 @@ export const ProductsCurated = ({
     direction = "horizontal",
     loadPerPage = 4,
     children,
+    className,
     ...rest
 }: PropsWithChildren<ProductsCuratedProps>) => {
     return (
-        <div className="flex flex-col gap-1 p-3">
+        <div className={twMerge("flex flex-col gap-1 p-3", className)}>
             <div className="mb-0.5 flex flex-row justify-between">
                 <div className="text-lg font-semibold">{title}</div>
                 <div className="flex cursor-pointer select-none items-center justify-center text-base text-gray-800">
