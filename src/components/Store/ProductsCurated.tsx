@@ -24,7 +24,7 @@ export const ProductsCurated = ({
                     <Icon type="material outlined" name="chevron_right" />
                 </div>
             </div>
-            <div className="flex touch-pan-x snap-x flex-row gap-3 overflow-auto">
+            <div className="flex touch-pan-y snap-x flex-row gap-3 overflow-auto">
                 {children}
             </div>
         </div>
