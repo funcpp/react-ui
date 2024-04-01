@@ -29,7 +29,7 @@ export const MaterialSymbols = ({
             className={`material-symbols-outlined ${className}`}
             style={{
                 fontVariationSettings: variantsStr,
-                //fontSize: size,
+                ...style,
             }}
             {...rest}
         >

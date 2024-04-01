@@ -1629,6 +1629,7 @@ __metadata:
     react: ">=18"
     react-dom: ">=18"
     tailwind-merge: ^2.2.2
+    tslib: ^2.6.2
   languageName: unknown
   linkType: soft
 

@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import useScroll from '@/hooks/useScroll';
-import { cssLength } from '@/utils';
-import { clamp } from '@/utils/math';
+import useScroll from "@/hooks/useScroll";
+import { cssLength } from "@/utils";
+import { clamp } from "@/utils/math";
 import {
     Fragment,
     PropsWithChildren,
@@ -10,8 +10,8 @@ import {
     useMemo,
     useRef,
     useState,
-} from 'react';
-import { twMerge } from 'tailwind-merge';
+} from "react";
+import { twMerge } from "tailwind-merge";
 
 interface NavInstagramProps
     extends React.DetailedHTMLProps<
@@ -23,7 +23,7 @@ interface NavInstagramProps
 }
 
 export const NavInstagram = (props: PropsWithChildren<NavInstagramProps>) => {
-    const { id, height = 56, children, style, className = '', ...rest } = props;
+    const { id, height = 56, children, style, className = "", ...rest } = props;
 
     const scroll = useScroll(id);
     const ref = useRef<HTMLDivElement>(null);
@@ -66,6 +66,7 @@ export const NavInstagram = (props: PropsWithChildren<NavInstagramProps>) => {
                     className
                 )}
                 style={{
+                    minHeight: cssLength(containerHeight * state),
                     height: cssLength(containerHeight * state),
                     borderBottomWidth: cssLength(state),
                     ...style,

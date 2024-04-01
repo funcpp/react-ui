@@ -113,10 +113,16 @@ export const Carousel = (props: PropsWithChildren<CarouselProps>) => {
                     }, interval);
                 });
         }
+
+        return () => {
+            controls.stop();
+        };
     }, [index]);
 
     return (
-        <div className={twMerge("relative w-full overflow-hidden", className)}>
+        <div
+            className={twMerge("relative w-full overflow-x-hidden", className)}
+        >
             <motion.div
                 className="flex w-full"
                 animate={controls}
