@@ -8,6 +8,7 @@ interface ProductThumbnailProps
         HTMLDivElement
     > {
     image: string;
+    aspect?: number; /// Aspect ratio of the image, width/height
     alt: string;
     showCart?: boolean;
     addedToCart?: boolean;
@@ -22,6 +23,7 @@ export const ProductThumbnail = (
 ) => {
     const {
         image,
+        aspect = 5 / 6,
         alt,
         showCart,
         onClickCart,
@@ -38,9 +40,7 @@ export const ProductThumbnail = (
                 alt={alt}
                 width={300}
                 height={0}
-                style={{
-                    aspectRatio: "5 / 6",
-                }}
+                style={{ aspectRatio: aspect }}
             />
             <div className="absolute bottom-0 right-0 flex flex-row rounded-tl-md bg-black/50">
                 {showCart && (

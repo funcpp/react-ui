@@ -4,11 +4,7 @@ import { PropsWithChildren, useEffect, useState } from "react";
 import { motion, useAnimationControls } from "framer-motion";
 import { cssLength } from "@/utils/css";
 import { twJoin, twMerge } from "tailwind-merge";
-
-type CarouselFloatingPositionX = "left" | "right" | "center";
-type CarouselFloatingPositionY = "top" | "bottom" | "center";
-type CarouselFloatingPosition =
-    `${CarouselFloatingPositionY} ${CarouselFloatingPositionX}`;
+import { AbsolutePosition, abspos2className } from "@/utils/abspos";
 
 interface CarouselProps
     extends React.DetailedHTMLProps<
@@ -16,11 +12,11 @@ interface CarouselProps
         HTMLDivElement
     > {
     showArrows?: boolean;
-    arrowsPosition?: CarouselFloatingPosition;
+    arrowsPosition?: AbsolutePosition;
     showDots?: boolean;
-    dotsPosition?: CarouselFloatingPosition;
+    dotsPosition?: AbsolutePosition;
     showIndex?: boolean;
-    indexPosition?: CarouselFloatingPosition;
+    indexPosition?: AbsolutePosition;
     transition: number;
     interval: number;
 
@@ -29,23 +25,6 @@ interface CarouselProps
 
 interface CarouselFloatingProps
     extends PropsWithChildren<React.HTMLAttributes<HTMLDivElement>> {}
-
-const getXY = (position: CarouselFloatingPosition): string => {
-    const [y, x] = position.split(" ");
-    const _y =
-        y === "top"
-            ? "top-4"
-            : y === "bottom"
-            ? "bottom-4"
-            : "top-1/2 -translate-y-1/2";
-    const _x =
-        x === "left"
-            ? "left-4"
-            : x === "right"
-            ? "right-4"
-            : "left-1/2 -translate-x-1/2";
-    return `absolute ${_y} ${_x}`;
-};
 
 const Index = ({ children, className = "" }: CarouselFloatingProps) => {
     return (
@@ -79,7 +58,6 @@ export const Carousel = (props: PropsWithChildren<CarouselProps>) => {
         transition = 200,
         height = 300,
         className = "",
-        ...rest
     } = props;
 
     const [index, setIndex] = useState<number>(0);
@@ -96,10 +74,14 @@ export const Carousel = (props: PropsWithChildren<CarouselProps>) => {
                     transition: { duration: transition / 1000 },
                 })
                 .then(() => {
-                    controls.set({ marginLeft: "0%" });
-                    setTimeout(() => {
-                        setIndex((p) => (p + 1) % children.length);
-                    }, interval);
+                    try {
+                        controls.set({ marginLeft: "0%" });
+                        setTimeout(() => {
+                            setIndex((p) => (p + 1) % children.length);
+                        }, interval);
+                    } catch (e) {
+                        return;
+                    }
                 });
         } else {
             controls
@@ -108,9 +90,13 @@ export const Carousel = (props: PropsWithChildren<CarouselProps>) => {
                     transition: { duration: transition / 1000 },
                 })
                 .then(() => {
-                    setTimeout(() => {
-                        setIndex((p) => (p + 1) % children.length);
-                    }, interval);
+                    try {
+                        setTimeout(() => {
+                            setIndex((p) => (p + 1) % children.length);
+                        }, interval);
+                    } catch (e) {
+                        return;
+                    }
                 });
         }
 
@@ -132,9 +118,11 @@ export const Carousel = (props: PropsWithChildren<CarouselProps>) => {
                 {children[0] /* dup */}
             </motion.div>
 
-            <Index className={getXY(indexPosition)}>
-                {index + 1} / {children.length}
-            </Index>
+            {showIndex && (
+                <Index className={abspos2className(indexPosition)}>
+                    {index + 1} / {children.length}
+                </Index>
+            )}
         </div>
     );
 };
