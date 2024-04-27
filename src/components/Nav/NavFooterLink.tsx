@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { MaterialSymbols } from "@/components/Icon/MaterialSymbols";
 import { twMerge } from "tailwind-merge";
 import { PropsWithChildren, ReactNode } from "react";
 import { Icon, IconProps } from "../Icon/Icon";
