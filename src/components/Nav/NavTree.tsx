@@ -25,6 +25,7 @@ interface NavTreeProps {
     paddingPerDepth?: number;
     depth?: number;
     linkFormat?: string;
+    titleKey?: string;
 }
 
 export function NavTree({
@@ -33,6 +34,7 @@ export function NavTree({
     paddingPerDepth = 24,
     depth = 0,
     linkFormat = "{link}",
+    titleKey = "title",
 }: NavTreeProps) {
     const [openChild, setOpenChild] = useState(false);
 
@@ -58,19 +60,26 @@ export function NavTree({
     );
 
     if (isLeaf) {
+        // change {key} to node.key using regex
+        const matched = linkFormat.match(/{(.*?)}/g);
+        let href = linkFormat;
+        if (matched) {
+            matched.forEach((match) => {
+                const key = match.replace("{", "").replace("}", "");
+                href = href.replace(match, node[key]);
+            });
+        }
+
         return (
             <Link
-                href={linkFormat
-                    .replace("{link}", node?.link || "#")
-                    .replace("{title}", node?.title)
-                    .replace("{id}", node?.id)}
+                href={href ?? "#"}
                 className={className}
                 style={{
                     paddingLeft: paddingPerDepth * depth + 12,
                 }}
             >
                 {node?.icon && <Icon {...node.icon} />}
-                <div className="ml-2">{node.title}</div>
+                <div className="ml-2">{node[titleKey]}</div>
             </Link>
         );
     } else {
@@ -84,7 +93,7 @@ export function NavTree({
                     onClick={() => setOpenChild((prev) => !prev)}
                 >
                     {node?.icon && <Icon {...node.icon} />}
-                    <div className="ml-2">{node.title}</div>
+                    <div className="ml-2">{node[titleKey]}</div>
                     {node.children && (
                         <Icon
                             className="ml-auto"
