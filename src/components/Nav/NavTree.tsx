@@ -26,6 +26,7 @@ interface NavTreeProps {
     depth?: number;
     linkFormat?: string;
     titleKey?: string;
+    idKey?: string;
 }
 
 export function NavTree({
@@ -35,18 +36,21 @@ export function NavTree({
     depth = 0,
     linkFormat = "{link}",
     titleKey = "title",
+    idKey = "id",
 }: NavTreeProps) {
     const [openChild, setOpenChild] = useState(false);
 
     const childs = Array.isArray(node?.children)
         ? node.children.map((child, index) => (
               <NavTree
-                  key={`${child.title}-${child?.id || index}`}
+                  key={`${child[titleKey]}-${child?.[idKey] || index}`}
                   depth={depth + 1}
                   classNames={classNames}
                   paddingPerDepth={paddingPerDepth}
                   linkFormat={linkFormat}
                   node={child}
+                  titleKey={titleKey}
+                  idKey={idKey}
               />
           ))
         : null;
