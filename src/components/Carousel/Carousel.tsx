@@ -20,7 +20,7 @@ interface CarouselProps
     transition: number;
     interval: number;
 
-    height: number;
+    //height: number;
 }
 
 interface CarouselFloatingProps
@@ -30,7 +30,7 @@ const Index = ({ children, className = "" }: CarouselFloatingProps) => {
     return (
         <div
             className={twJoin(
-                "z-10 flex justify-center rounded-lg bg-black/50 px-2 py-1 text-center font-semibold text-white",
+                "z-10 flex justify-center rounded-lg bg-black/50 px-2 py-1 text-center font-semibold text-white text-sm",
                 className
             )}
         >
@@ -56,7 +56,7 @@ export const Carousel = (props: PropsWithChildren<CarouselProps>) => {
         indexPosition = "bottom center",
         interval = 5000,
         transition = 200,
-        height = 300,
+        //height = 300,
         className = "",
     } = props;
 
@@ -109,11 +109,7 @@ export const Carousel = (props: PropsWithChildren<CarouselProps>) => {
         <div
             className={twMerge("relative w-full overflow-x-hidden", className)}
         >
-            <motion.div
-                className="flex w-full"
-                animate={controls}
-                style={{ height: cssLength(height) }}
-            >
+            <motion.div className="flex w-full" animate={controls}>
                 {children}
                 {children[0] /* dup */}
             </motion.div>

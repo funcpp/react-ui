@@ -3,7 +3,7 @@
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "version": "0.1.14",
+  "version": "0.1.27",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/funcpp/react-ui.git"
@@ -20,7 +20,8 @@
     "build": "rollup -c",
     "watch": "rollup -c -w",
     "lint": "eslint . --ext .ts,.tsx",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "publish": "yarn build && yarn npm publish"
   },
   "devDependencies": {
     "@babel/core": "^7.24.3",
