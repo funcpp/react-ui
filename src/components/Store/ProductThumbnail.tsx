@@ -138,26 +138,33 @@ export const ProductThumbnail = (
                     </div>
                 )}
             </div>
-            {floating.map(({ position, className, children }) => {
-                return (
-                    <div
-                        className={twMerge(
-                            `absolute ${abspos2className(position)} flex z-30`,
-                            className
-                        )}
-                    >
-                        {children.map(({ className, content }) => {
-                            return (
-                                <div
-                                    className={twMerge("z-30 flex", className)}
-                                >
-                                    {content}
-                                </div>
-                            );
-                        })}
-                    </div>
-                );
-            })}
+            {Array.isArray(floating) &&
+                floating.map(({ position, className, children }) => {
+                    return (
+                        <div
+                            className={twMerge(
+                                `absolute ${abspos2className(
+                                    position
+                                )} flex z-30`,
+                                className
+                            )}
+                        >
+                            {Array.isArray(children) &&
+                                children.map(({ className, content }) => {
+                                    return (
+                                        <div
+                                            className={twMerge(
+                                                "z-30 flex",
+                                                className
+                                            )}
+                                        >
+                                            {content}
+                                        </div>
+                                    );
+                                })}
+                        </div>
+                    );
+                })}
             {children}
         </div>
     );

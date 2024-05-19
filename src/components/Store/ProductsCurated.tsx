@@ -1,10 +1,15 @@
-import { DetailedHTMLProps, HTMLAttributes, PropsWithChildren } from "react";
+import {
+    DetailedHTMLProps,
+    HTMLAttributes,
+    PropsWithChildren,
+    ReactNode,
+} from "react";
 import { Icon } from "../Icon";
 import { twMerge } from "tailwind-merge";
 
 interface ProductsCuratedProps
     extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-    title: string;
+    curatedTitle?: string | ReactNode;
     direction?: "vertical" | "horizontal";
     loadPerPage?: number;
     classNames?: {
@@ -16,7 +21,7 @@ interface ProductsCuratedProps
 }
 
 export const ProductsCurated = ({
-    title,
+    curatedTitle: title,
     direction = "horizontal",
     loadPerPage = 4,
     children,
@@ -28,14 +33,17 @@ export const ProductsCurated = ({
     return (
         <div className={twMerge("flex flex-col gap-1 p-4", className)}>
             <div className="mb-0.5 flex flex-row justify-between">
-                <div
-                    className={twMerge(
-                        "text-lg font-semibold",
-                        classNames.title
-                    )}
-                >
-                    {title}
-                </div>
+                {typeof title === "string" && (
+                    <div
+                        className={twMerge(
+                            "text-lg font-semibold",
+                            classNames?.title
+                        )}
+                    >
+                        {title}
+                    </div>
+                )}
+                {typeof title !== "string" && title}
                 {showAll && (
                     <div className="flex cursor-pointer select-none items-center justify-center text-base text-gray-800">
                         <div className="mr-1">전체 보기</div>
