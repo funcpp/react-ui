@@ -1,6 +1,6 @@
 "use client";
 
-import TabItem from "@/components/Tabs/TabItem";
+import { TabItem } from "@/components/Tabs/TabItem";
 import {
     DetailedHTMLProps,
     Fragment,
@@ -21,7 +21,7 @@ interface TabsProps
     sticky?: boolean;
 }
 
-const Tabs = ({
+export const Tabs = ({
     children,
     data,
     scrolling = false,
@@ -109,5 +109,3 @@ const Tabs = ({
         </Fragment>
     );
 };
-
-export default Tabs;

@@ -9,7 +9,7 @@ interface TabItemProps
     isOpen: boolean;
 }
 
-const TabItem = ({ title, isOpen, ...rest }: TabItemProps) => {
+export const TabItem = ({ title, isOpen, ...rest }: TabItemProps) => {
     return (
         <div
             className="relative flex w-full cursor-pointer select-none flex-col items-center justify-center pb-[3px]"
@@ -24,5 +24,3 @@ const TabItem = ({ title, isOpen, ...rest }: TabItemProps) => {
         </div>
     );
 };
-
-export default TabItem;
