@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { DetailedHTMLProps, HTMLAttributes } from "react";
+import { twMerge } from "tailwind-merge";
 
 interface TabItemProps
     extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
@@ -9,10 +10,18 @@ interface TabItemProps
     isOpen: boolean;
 }
 
-export const TabItem = ({ title, isOpen, ...rest }: TabItemProps) => {
+export const TabItem = ({
+    className,
+    title,
+    isOpen,
+    ...rest
+}: TabItemProps) => {
     return (
         <div
-            className="relative flex w-full cursor-pointer select-none flex-col items-center justify-center pb-[3px]"
+            className={twMerge(
+                "relative flex w-full cursor-pointer select-none flex-col items-center justify-center pb-[3px]",
+                className
+            )}
             {...rest}
         >
             <div className="p-3">

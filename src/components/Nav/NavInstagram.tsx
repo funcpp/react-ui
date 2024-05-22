@@ -89,7 +89,10 @@ export const NavInstagram = (props: PropsWithChildren<NavInstagramProps>) => {
                     {children}
                 </div>
             </div>
-            <div style={{ marginBottom: containerHeight }} />
+            <div
+                className={className}
+                style={{ marginBottom: containerHeight }}
+            />
         </Fragment>
     );
 };

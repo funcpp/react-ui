@@ -10,6 +10,7 @@ import {
     useRef,
     useState,
 } from "react";
+import { twMerge } from "tailwind-merge";
 
 interface TabsProps
     extends DetailedHTMLProps<
@@ -19,9 +20,15 @@ interface TabsProps
     data: string[];
     scrolling?: boolean;
     sticky?: boolean;
+    classNames?: {
+        header?: string;
+        item?: string;
+        item_active?: string;
+    };
 }
 
 export const Tabs = ({
+    classNames,
     children,
     data,
     scrolling = false,
@@ -57,12 +64,20 @@ export const Tabs = ({
     return (
         <Fragment>
             <div
-                className={`${sticky && "sticky top-0 z-[100]"} bg-white pt-2`}
+                className={twMerge(
+                    `${sticky && "sticky top-0 z-[100]"} bg-white pt-2`,
+                    classNames?.header
+                )}
                 ref={barRef}
             >
                 <div className="relative flex w-full flex-row">
                     {data.map((title: string, index: number) => (
                         <TabItem
+                            className={
+                                menu === index
+                                    ? classNames?.item_active
+                                    : classNames?.item
+                            }
                             key={title}
                             title={title}
                             onClick={() => {
